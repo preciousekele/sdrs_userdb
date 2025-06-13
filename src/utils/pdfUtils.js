@@ -58,6 +58,7 @@ export function downloadRecordPDF(record) {
   
   addAlignedField("Student Name", record.studentName);
   addAlignedField("Matric No", record.matricNumber);
+  addAlignedField("Level", record.level);
   addAlignedField("Department", record.department);
   addAlignedField("Offense", record.offense);
   addAlignedField("Status", record.status);

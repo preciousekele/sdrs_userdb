@@ -66,6 +66,12 @@ const RecordDetailsModal = ({ record, isOpen, onClose }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div>
               <h3 className="text-sm font-medium text-gray-400 mb-1">
+                Level
+              </h3>
+              <p className="text-lg text-gray-200">{record.level}</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-medium text-gray-400 mb-1">
                 Department
               </h3>
               <p className="text-lg text-gray-200">{record.department}</p>
