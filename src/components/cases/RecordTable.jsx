@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import {
-  Edit,
   Search,
   Eye,
   ChevronLeft,
   ChevronRight,
-  Trash2,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import RecordDetailsModal from "./RecordDetailsModal";
 
@@ -75,8 +72,8 @@ const RecordsTable = ({ records, onDeleteRecord }) => {
         (record.studentName?.toLowerCase() || "").includes(term) ||
         (record.matricNumber?.toString() || "").includes(term) ||
         (record.level?.toLowerCase() || "").includes(term) ||
-        (record.department?.toLowerCase() || "").includes(term) ||
         (record.offense?.toLowerCase() || "").includes(term) ||
+        (record.department?.toLowerCase() || "").includes(term) ||
         (record.status?.toLowerCase() || "").includes(term)
     );
 
@@ -170,8 +167,8 @@ const RecordsTable = ({ records, onDeleteRecord }) => {
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-6 py-3 text-xs font-medium text-gray-400 uppercase tracking-wider">
-                VIEW RECORD
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                Action
               </th>
             </tr>
           </thead>
@@ -186,9 +183,14 @@ const RecordsTable = ({ records, onDeleteRecord }) => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                     {indexOfFirstRecord + index + 1}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-100">
+                  <td
+                    className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-100 cursor-pointer hover:text-gray-300"
+                    onClick={() => openModal(record)}
+                    title="View full record details"
+                  >
                     {record.studentName || "N/A"}
                   </td>
+
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                     {record.matricNumber || "N/A"}
                   </td>

@@ -1,8 +1,11 @@
 import { X, Edit, Trash2, Download } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { downloadRecordPDF } from "../../utils/pdfUtils";
-
-const RecordDetailsModal = ({ record, isOpen, onClose }) => {
+const RecordDetailsModal = ({
+  record,
+  isOpen,
+  onClose,
+}) => {
   const modalRef = useRef(null);
 
   // Close modal on outside click or Escape key
@@ -31,6 +34,7 @@ const RecordDetailsModal = ({ record, isOpen, onClose }) => {
       document.body.style.overflow = "auto";
     };
   }, [isOpen, onClose]);
+
   if (!isOpen || !record) return null;
 
   return (
@@ -45,7 +49,6 @@ const RecordDetailsModal = ({ record, isOpen, onClose }) => {
           ref={modalRef}
           className="relative bg-gray-800 border border-gray-700 rounded-lg p-6 max-w-2xl w-full shadow-xl"
         >
-          {/* Header */}
           <div className="flex justify-between items-start mb-6">
             <div>
               <h2 className="text-2xl font-bold text-gray-100">
@@ -61,42 +64,66 @@ const RecordDetailsModal = ({ record, isOpen, onClose }) => {
               <X className="w-6 h-6" />
             </button>
           </div>
-
-          {/* Record Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div>
-              <h3 className="text-sm font-medium text-gray-400 mb-1">
-                Level
-              </h3>
+              <h3 className="text-sm font-medium text-gray-400 mb-1">Level</h3>
               <p className="text-lg text-gray-200">{record.level}</p>
             </div>
+
             <div>
               <h3 className="text-sm font-medium text-gray-400 mb-1">
                 Department
               </h3>
               <p className="text-lg text-gray-200">{record.department}</p>
             </div>
+
             <div>
               <h3 className="text-sm font-medium text-gray-400 mb-1">
                 Offense
               </h3>
               <p className="text-lg text-gray-200">{record.offense}</p>
             </div>
+
             <div>
               <h3 className="text-sm font-medium text-gray-400 mb-1">
                 Punishment
               </h3>
               <p className="text-lg text-gray-200">{record.punishment}</p>
             </div>
+
             <div>
               <h3 className="text-sm font-medium text-gray-400 mb-1">Date</h3>
               <p className="text-lg text-gray-200">{record.date}</p>
             </div>
+
             <div>
               <h3 className="text-sm font-medium text-gray-400 mb-1">Status</h3>
-              <span className=" py-1 text-gray-200 text-lg font-medium">
-                {record.status}
-              </span>
+              <p className="text-lg text-gray-200">{record.status}</p>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-medium text-gray-400 mb-1">
+                Offense Count
+              </h3>
+              <p className="text-lg text-gray-200">{record.offenseCount}</p>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-medium text-gray-400 mb-1">
+                Punishment Duration
+              </h3>
+              <p className="text-lg text-gray-200">
+                {record.punishmentDuration || "Nil"}
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-medium text-gray-400 mb-1">
+                Resumption Date
+              </h3>
+              <p className="text-lg text-gray-200">
+                {record.resumptionPeriod || "Nil"}
+              </p>
             </div>
           </div>
 
