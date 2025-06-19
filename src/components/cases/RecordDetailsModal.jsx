@@ -1,6 +1,7 @@
 import { X, Edit, Trash2, Download } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { downloadRecordPDF } from "../../utils/pdfUtils";
+
 const RecordDetailsModal = ({
   record,
   isOpen,
@@ -35,6 +36,21 @@ const RecordDetailsModal = ({
     };
   }, [isOpen, onClose]);
 
+  // Format date for display
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch (error) {
+      return dateString; // Return original if formatting fails
+    }
+  };
+
   if (!isOpen || !record) return null;
 
   return (
@@ -47,7 +63,7 @@ const RecordDetailsModal = ({
         {/* Modal content */}
         <div
           ref={modalRef}
-          className="relative bg-gray-800 border border-gray-700 rounded-lg p-6 max-w-2xl w-full shadow-xl"
+          className="relative bg-gray-800 border border-gray-700 rounded-lg p-6 max-w-2xl w-full shadow-xl max-h-[90vh] overflow-y-auto"
         >
           <div className="flex justify-between items-start mb-6">
             <div>
@@ -64,17 +80,18 @@ const RecordDetailsModal = ({
               <X className="w-6 h-6" />
             </button>
           </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div>
               <h3 className="text-sm font-medium text-gray-400 mb-1">Level</h3>
-              <p className="text-lg text-gray-200">{record.level}</p>
+              <p className="text-lg text-gray-200">{record.level || "N/A"}</p>
             </div>
 
             <div>
               <h3 className="text-sm font-medium text-gray-400 mb-1">
                 Department
               </h3>
-              <p className="text-lg text-gray-200">{record.department}</p>
+              <p className="text-lg text-gray-200">{record.department || "N/A"}</p>
             </div>
 
             <div>
@@ -93,7 +110,7 @@ const RecordDetailsModal = ({
 
             <div>
               <h3 className="text-sm font-medium text-gray-400 mb-1">Date</h3>
-              <p className="text-lg text-gray-200">{record.date}</p>
+              <p className="text-lg text-gray-200">{formatDate(record.date)}</p>
             </div>
 
             <div>
@@ -105,7 +122,15 @@ const RecordDetailsModal = ({
               <h3 className="text-sm font-medium text-gray-400 mb-1">
                 Offense Count
               </h3>
-              <p className="text-lg text-gray-200">{record.offenseCount}</p>
+              <p className="text-lg text-gray-200">
+                {record.offenseCount || 1}
+                <span className="text-sm text-gray-400 ml-1">
+                  {record.offenseCount === 1 ? "(1st offense)" : 
+                   record.offenseCount === 2 ? "(2nd offense)" :
+                   record.offenseCount === 3 ? "(3rd offense)" :
+                   `(${record.offenseCount}th offense)`}
+                </span>
+              </p>
             </div>
 
             <div>
@@ -117,7 +142,7 @@ const RecordDetailsModal = ({
               </p>
             </div>
 
-            <div>
+            <div className="md:col-span-2">
               <h3 className="text-sm font-medium text-gray-400 mb-1">
                 Resumption Date
               </h3>
@@ -127,6 +152,7 @@ const RecordDetailsModal = ({
             </div>
           </div>
 
+          {/* Action Buttons */}
           <div className="flex justify-end gap-3 border-t border-gray-700 pt-4">
             <button
               onClick={() => downloadRecordPDF(record)}
