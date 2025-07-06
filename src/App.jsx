@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import OverviewPage from "./pages/userdashboard/Overview";
 import Sidebar from "./components/common/Sidebar";
-import AnalyticsPage from "./pages/userdashboard/AnalyticsPage";
 import SettingsPages from "./pages/userdashboard/SettingsPages";
 import RecordsPage from "./pages/userdashboard/RecordsPage";
 import EditProfile from "./components/settings/EditUserProfile";
@@ -139,7 +138,6 @@ function App() {
         <Routes>
           <Route index element={<OverviewPage />} />
           <Route path="/records" element={<RecordsPage />} />
-          <Route path="/analytics" element={<AnalyticsPage />} />
           <Route path="/settings" element={<SettingsPages />} />
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/change-password" element={<ChangePassword />} />
